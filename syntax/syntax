@@ -1,0 +1,96 @@
+for(var in seq) {
+  //do_something
+}
+///
+while(cond) {
+  //do_something
+}
+///
+if(cond) {
+  //do_something
+}
+else {
+  //do_something
+}
+///
+ifelse ( cond , x , y)
+///
+function_name <- function(var) {
+  //do_something
+  return(var)
+}
+///
+  Rules for writing Identifiers in R :
+* Identifiers can be a combination of letters, digits, period (.) and underscore (_).
+* It must start with a letter or a period. If it starts with a period, it cannot be followed by a digit.
+* Reserved words in R cannot be used as identifiers.
+///
+& , |: operations are possible only for numeric, logical or complex types
+///
+INSTS         : "{" INST  "}"
+INST          : ( AFF_RIGHT | AFF_LEFT | SI | EXPR | BOUCLE  | PRINT | INSTS ) ";"
+AFF_RIGHT     :  EXPR  AFF_RIGHT ID
+EXPR          : TERM  [ARTHOP  TERM]
+TERM          : FACT  [MULTOP  FACT]
+FACT          : ID | NUM | CHARACTER | "(" EXPR ")" | ARRAY | CALL_FUNCTION
+AFF_LEFT      : ID AFF_LEFT INST
+SI            : if "(" COND ")" "{" INST "}" [ else "{" INST "}" | "epsilon" ]
+BOUCLE        : BOUCLE_FOR | BOUCLE_WHILE
+BOUCLE_WHILE  : while "(" COND ")" "{" INST "}"
+BOUCLE_FOR    : for "(" ID "in" SEQ ")" "{" INST "}"
+PRINT         : print "(" EXPR ")"
+INPUT         : readline("//msg")
+CALL_FUNCTION : ID (EXPR,)
+FUNCTION      : "function" "(" VAR_FUNCTION ")" ["{"] INST ["return" "("] VAR [")"] ["}"]
+//
+CHIFFRE       : "0"|..|"9"
+LETTRE        : "a"|..|"z"|"A"|..|"Z"
+CHARACTER     : (""" | "'") [ANY]¹ (""" | "'")
+HEX           : "0"|..|"9"|"A"|..|"F"|"a"|..|"f"
+NUM           : CHIFFRE¹ | "0" ("x"|"X") HEX¹
+INTEGER       : [CHIFFRE]¹ "L"
+DOUBLE        : [CHIFFRE]¹ "." INTEGER // this part
+COMPLEX       : [DOUBLE]¹ ("+"|"-")  NUM "i"
+VECTOR        :  EXPR ":" EXPR
+ID            : (".")⁰ ("_")¹ (LETTRE | epsilon) (LETTRE|CHIFFRE|"."|"_")⁰
+//
+//
+COND          : COND1 [ "||" COND1 | "&&" COND1 ]
+COND1         : ["("] COND2 [")"]
+COND2         : ["!"] COND3
+COND3         : COND4 [ RELOP COND4]
+COND4         : "TRUE" | "FALSE" | EXPR
+//
+RELOP         : "==" | "!=" | "<" | "<=" | ">" | ">="
+AFFOP_LEFT    : "<-" | "<<-" | "="
+AFFOP_RIGHT   : "->" | "->>"
+ARTHOP        : "+" | "-"
+MULTOP        : "*" | "/" | "^" | "%%" | "%/%"
+VAL           : BOOLEAN | NUM | INTEGER | COMPLEX | CHARACTER | RAW | VECTOR | LIST | MATRICE | ARRAY
+///
+INST          : ID B| BOUCLE  | PRINT | SI
+AFTER_ID      : AFF_LEFT  | ( EXPR | epsilon ) C(AFF_RIGHT,EXPR)
+C(AFF_RIGHT,EXPR) : AFF_RIGHT ID
+EXPR          : TERM  [ARTHOP  TERM]
+TERM          : FACT  [MULTOP  FACT]
+FACT          : VAL | "(" EXPR | ID ("," EXPR | ID) ")"  |  | epsilon
+AFF_LEFT      : AFF_LEFT INST
+SI            : if "(" COND ")" "{" INST "}" [ else "{" INST "}" | "epsilon" ]
+BOUCLE        : BOUCLE_FOR | BOUCLE_WHILE
+BOUCLE_WHILE  : while "(" COND ")" "{" INST "}"
+BOUCLE_FOR    : for "(" ID "in" SEQ ")" "{" INST "}"
+PRINT         : print "(" EXPR ")"
+INPUT         : readline("//msg")
+FUNCTION      : "function" "(" VAR_FUNCTION ")" ["{"] INST ["return" "("] VAR [")"] ["}"]
+
+///
+TOKENS :
+IF_TOKEN ( if ), ELSE_TOKEN ( else ), REPEAT_TOKEN ( repeat ), WHILE_TOKEN ( while ), FUNCTION_TOKEN ( function ), FOR_TOKEN ( for ), IN_TOKEN ( in ), NEXT_TOKEN ( next ) , BREAK_TOKEN ( break ), TRUE_TOKEN ( true ),
+FALSE_TOKEN ( false ) , NULL_TOKEN ( null ), PRINT_TOKEN ( print ) , READ_LINE_TOKEN ( readline ) , RETURN_TOEKN ( return ) , Inf_TOKEN , NaN_TOKEN ,
+NA_INTEGER_TOKEN , NA_REAL_TOKEN , NA_COMPLEX_TOKEN , NA_CHARACTER_TOKEN ,
+ADD_TOKEN ( + ), SUB_TOKEN ( - ), MULT_TOKEN ( * ), DIV_TOKEN ( / ), EXPONENT_TOKEN ( ^ ), MODULUS_TOKEN ( %% ), INT_DIV_TOKEN ( %/% ),
+INF_TOKEN ( < ), SUP_TOKEN ( > ) , INFEG_TOKEN ( <= ), SUPEG_TOKEN ( >= ) , EQUALTO_TOKEN ( == ), NOT_EQUAL_TOKEN ( != ),
+LOGICAL_NOT_TOKEN ( ! ), LOGICAL_AND_TOKEN ( && ), LOGICAL_OR_TOKEN ( || ) , ELEMENTWISE_LOGICAL_AND_TOKEN ( & ) , ELEMENTWISE_LOGICAL_OR_TOKEN ( | ) ,
+LEFT_ASGN_TOKEN ( <- , <<- , = ), RIGHT_ASGN_TOKEN ( -> , ->> ) , PO_TOKEN ( ( ) , PF_TOKEN ( ) ) , AO_TOKEN ( { ) , AF_TOKEN ( } ) ,
+POINT_TOKEN ( . ) , VIR_TOKEN ( , ) , TWO_POINT_TOKEN ( : ) , GUIL_TOKEN ( " ) , APOST_TOKEN ( ' )
+///
